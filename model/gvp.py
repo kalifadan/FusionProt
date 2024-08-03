@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torchdrug import models, layers, core
 from torchdrug.core import Registry as R
 
-from model import gvp_layer as layer
+from gearnet import gvp_layer as layer
 
 
 @R.register("models.GVPGNN")
@@ -44,7 +44,8 @@ class GVPGNN(nn.Module, core.Configurable):
         self.output_dim = node_h_dim[0]
         self.rbf_dim = edge_in_dim[0]
 
-        self.residue_embdding = nn.Linear(node_in_dim[0], node_in_dim[0], bias=False)
+        raw_input_dim = 21  # amino acid tokens
+        self.residue_embedding = nn.Linear(raw_input_dim, node_in_dim[0], bias=False)
         self.W_v = nn.Sequential(
             layer.GVPLayerNorm(node_in_dim),
             layer.GVP(node_in_dim, node_h_dim, activations=(None, None), vector_gate=vector_gate)
@@ -87,7 +88,7 @@ class GVPGNN(nn.Module, core.Configurable):
         :param edge_index: `torch.Tensor` of shape [2, num_edges]
         :param h_E: tuple (s, V) of edge embeddings
         '''
-        h_node = self.residue_embdding(input)
+        h_node = self.residue_embedding(input)
 
         edge_index = graph.edge_list.t()[:2]
         node_in, node_out = edge_index
