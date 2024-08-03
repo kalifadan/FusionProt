@@ -315,7 +315,8 @@ class ContinuousDiscreteConvolutionalNetwork(nn.Module, core.Configurable):
         self.cutoffs = cutoffs
         self.seq_cutoff = seq_cutoff
 
-        self.embedding = nn.Linear(input_dim, embedding_dim, bias=False)
+        raw_input_dim = 21  # amino acid tokens
+        self.embedding = nn.Linear(raw_input_dim, embedding_dim, bias=False)
         self.layers = nn.ModuleList()
         for i in range(len(self.dims) - 1):
             self.layers.append(CDBlock(seq_cutoff, cutoffs[i], kernel_dims, self.dims[i], self.dims[i+1], base_width=base_width,
@@ -340,8 +341,8 @@ class ContinuousDiscreteConvolutionalNetwork(nn.Module, core.Configurable):
         )
         offsets = (graph.num_cum_nodes - graph.num_nodes).repeat_interleave(num_edges)
 
-        new_graph = data.PackedGraph(edge_list, num_nodes=graph.num_nodes, num_edges=num_edges,
-                                    offsets=offsets)
+        new_graph = data.PackedGraph(edge_list, num_nodes=graph.num_nodes, num_edges=num_edges, offsets=offsets)
+
         with new_graph.node():
             new_graph.node_position = graph.node_position
             new_graph.residue_number = graph.residue_number
