@@ -14,7 +14,7 @@ This repository provides a reference implementation of 3DProtLM and baselines as
 
 Some code was borrowed from [ESM-GearNet](https://github.com/DeepGraphLearning/ESM-GearNet).
 
-We publish the [3DProtLM](TBD-URL) model's weights, trained with the multiview contrast objective.
+We publish the [3DProtLM](https://drive.google.com/file/d/10RjzOc3N4uBFQflr1pXV_DgJT45ogiln/view?usp=sharing) model's weights, trained with a Multiview Contrast objective.
 
 
 ## Installation
