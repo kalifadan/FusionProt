@@ -67,7 +67,7 @@ engine:
 
 model_checkpoint: {{ ckpt }}
 
-sequence_model_lr_ratio: 0.1
+sequence_model_lr_ratio: 0.08
 
 metric: f1_max
 
