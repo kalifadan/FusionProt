@@ -1,22 +1,21 @@
 output_dir: ~/scratch/task_output
 
 dataset:
-  class: GeneOntology
+  class: MSPDataset
   path: ~/scratch/protein-datasets/
-  branch: {{ branch }}
-  test_cutoff: 0.95
   atom_feature: null
-  bond_feature: null
+  residue_feature: default
   transform:
     class: Compose
     transforms:
       - class: ProteinView
         view: residue
-      - class: TruncateProtein
-        max_length: 550
+        keys: ["graph1", "graph2"]
+      - class: TruncateProteinPair
+        max_length: 1000
 
 task:
-  class: MultipleBinaryClassification
+  class: MSP
   model:
     class: FusionNetwork
     sequence_model:
@@ -45,32 +44,23 @@ task:
       - class: KNNEdge
         k: 10
         min_distance: 5
-  criterion: bce
-  num_mlp_layer: 3
-  metric: ['auprc@micro', 'f1_max']
 
 optimizer:
-  class: AdamW
-  lr: 2.0e-5
+  class: AdamW  # todo: Adam
+  lr: 2.0e-5   # todo: 1.0e-4
   betas: [0.9, 0.98]
   weight_decay: 0.01
 
-scheduler:
-  class: ReduceLROnPlateau
-  factor: 0.6
-  patience: 5
-
 engine:
-  gpus: [0, 1 ,2, 3]
+  gpus: [0, 1, 2, 3]
   batch_size: 2
-  gradient_interval: 8
   log_interval: 1000
 
-model_checkpoint: {{ ckpt }}
+# todo: model_checkpoint: {{ ckpt }}
+
+metric: auroc [label]
 
 sequence_model_lr_ratio: 0.1
 
-metric: f1_max
-
 train:
-  num_epoch: 100
+  num_epoch: 50

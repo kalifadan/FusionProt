@@ -1,4 +1,4 @@
-output_dir: ~/scratch/kdd25_output
+output_dir: ~/scratch/task_output
 
 dataset:
   class: EnzymeCommission
