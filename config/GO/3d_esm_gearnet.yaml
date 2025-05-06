@@ -73,4 +73,4 @@ sequence_model_lr_ratio: 0.08
 metric: f1_max
 
 train:
-  num_epoch: 50
+  num_epoch: 100
