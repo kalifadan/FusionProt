@@ -1,4 +1,4 @@
-output_dir: ~/scratch/kdd25_output
+output_dir: ~/scratch/training_output
 
 dataset:
   class: AlphaFoldDB
