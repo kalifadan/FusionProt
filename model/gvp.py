@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from torchdrug import models, layers, core
 from torchdrug.core import Registry as R
 
-from gearnet import gvp_layer as layer
+from model import gvp_layer as layer
 
 
 @R.register("models.GVPGNN")

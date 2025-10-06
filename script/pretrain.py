@@ -13,7 +13,7 @@ from torchdrug.utils import comm
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import util
-from gearnet import model, task, siamdiff
+from model import model, task, siamdiff
 
 
 def save(solver, path):
