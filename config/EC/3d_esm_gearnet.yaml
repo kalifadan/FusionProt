@@ -12,7 +12,7 @@ dataset:
       - class: ProteinView
         view: residue
       - class: TruncateProtein
-        max_length: 550
+        max_length: 1024
 
 task:
   class: MultipleBinaryClassification
